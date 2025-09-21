@@ -32,11 +32,26 @@ def train(
     dataset: Annotated[str, cyclopts.Parameter(help="Path to training dataset")],
     output_dir: Annotated[str, cyclopts.Parameter(help="Output directory for trained model")] = "./models",
     epochs: Annotated[int, cyclopts.Parameter(help="Number of training epochs")] = 10,
+    optimize_prompt: Annotated[bool, cyclopts.Parameter(help="Enable prompt optimization")] = False,
+    prompt_optimizer: Annotated[Optional[str], cyclopts.Parameter(help="Prompt optimizer to use (e.g., 'MIPRO', 'BootstrapFewShot')")] = None,
+    num_trials: Annotated[int, cyclopts.Parameter(help="Number of optimization trials")] = 20,
+    max_bootstrapped_demos: Annotated[int, cyclopts.Parameter(help="Maximum bootstrapped demonstrations")] = 4,
+    max_labeled_demos: Annotated[int, cyclopts.Parameter(help="Maximum labeled demonstrations")] = 16,
+    eval_kwargs: Annotated[Optional[str], cyclopts.Parameter(help="Additional evaluation kwargs as JSON string")] = None,
 ):
-    """Train a new entity extraction model."""
+    """Train a new entity extraction model with optional prompt optimization."""
     print(f"Training model with dataset: {dataset}")
     print(f"Output directory: {output_dir}")
     print(f"Epochs: {epochs}")
+
+    if optimize_prompt:
+        print(f"Prompt optimization enabled")
+        print(f"Optimizer: {prompt_optimizer or 'default'}")
+        print(f"Number of trials: {num_trials}")
+        print(f"Max bootstrapped demos: {max_bootstrapped_demos}")
+        print(f"Max labeled demos: {max_labeled_demos}")
+        if eval_kwargs:
+            print(f"Evaluation kwargs: {eval_kwargs}")
 
     # TODO: Implement training logic
     print("Model training not yet implemented")
